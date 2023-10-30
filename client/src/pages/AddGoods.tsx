@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { BackButton, Spin } from '../components'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import {useSnackbar} from 'notistack'
 
 const AddGoods = () => {
   const [title, setTitle] = useState('')
@@ -9,6 +10,8 @@ const AddGoods = () => {
   const [price, setPrice] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const {enqueueSnackbar} = useSnackbar()
+
   const handleSaveGood = () => {
     const data = {
       title,
@@ -20,11 +23,13 @@ const AddGoods = () => {
       .post('http://localhost:2000/goods',data)
       .then(() => {
         setLoading(false)
+        enqueueSnackbar('Goods Added Successfully', {variant: 'success'})
         navigate('/')
       })
       .catch((err) => {
         setLoading(false)
         alert('Error has happened, please check console')
+        enqueueSnackbar('Error', {variant:'error'})
         console.log(err)
       })
   }

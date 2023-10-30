@@ -16,6 +16,7 @@ const ShowGood: React.FC = () => {
   })
   const [loading, setLoading] = useState(false)
   const {id} = useParams()
+  const totalprice = good.quantity.valueOf() * good.price.valueOf()
 
   useEffect(() => {
     setLoading(true)
@@ -46,16 +47,21 @@ const ShowGood: React.FC = () => {
             </div>
             <div className='my-4'>
               <span className='text-xl mr-4 text-gray-500'>Name of goods =</span>
-              <span className='uppercase'>{good.title}</span>
+              <span className='capitalize'>{good.title}</span>
             </div>
             <div className='my-4'>
               <span className='text-xl mr-4 text-gray-500'>Quantity =</span>
-              <span>{`${good.quantity}`}</span>
+              <span>{`${good.quantity} Pcs`}</span>
             </div>
             <div className='my-4'>
               <span className='text-xl mr-4 text-gray-500'>Price =</span>
-              <span>{`Rp ${good.price}`}</span>
+              <span>{`Rp ${good.price.toLocaleString('id-ID')} / Pcs`}</span>
             </div>
+            <div className='my-4'>
+              <span className='text-xl mr-4 text-gray-500'>Total Price =</span>
+              <span>{`Rp ${totalprice.toLocaleString('id-ID')} `}</span>
+            </div>
+            
             <div className='my-4'>
               <span className='text-xl mr-4 text-gray-500'>Time Created =</span>
               {good.createdAt ? new Date(good.createdAt).toString() : "Date not available"}
